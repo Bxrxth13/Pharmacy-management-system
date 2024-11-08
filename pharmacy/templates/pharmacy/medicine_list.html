@@ -1,0 +1,107 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Medicine List</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20;
+            padding: 0;
+            background-image: url("{% static 'pic10.avif' %}");
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: #333;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        table, th, td {
+            border: 1px solid #555; /* Darker border color */
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .button {
+            padding: 8px 12px;
+            border: none;
+            border-radius: 4px;
+            color: white;
+            font-size: 14px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        .delete-button {
+            background-color: #e74c3c;
+        }
+        .edit-button {
+            background-color: #3498db;
+        }
+        .add-button{
+            background-color: #35ab52;
+            display: inline-block;
+            margin: 5px 0;
+            padding: 8px 15px;
+        } 
+        .home-button {
+            background-color: #681313;
+            display: inline-block;
+            margin: 5px 0;
+            padding: 8px 15px;
+        }
+        .action-buttons {
+            display: flex;
+            gap: 8px;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Medicine List</h1>
+
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Dosage</th>
+            <th>Price</th>
+            <th>Quantity</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for item in medicines %}
+        <tr>
+            <td>{{ item.medicine.name }}</td>
+            <td>{{ item.medicine.dosage }}</td>
+            <td>₹{{ item.medicine.price }}</td>
+            <td>{{ item.stock_quantity }}</td>
+            <td class="action-buttons">
+                <form action="{% url 'delete_medicine' item.medicine.id %}" method="POST" style="display:inline;">
+                    {% csrf_token %}
+                    <button type="submit" class="button delete-button">Delete</button>
+                </form>
+                <a href="{% url 'edit_medicine' item.medicine.id %}" class="button edit-button">Edit</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+    
+</table>
+
+<center>
+    <a href="{% url 'add_medicine' %}" class="button add-button">Add New Medicine</a> <br>
+    <a href="{% url 'home' %}" class="button home-button">Go Back to Home</a>
+</center>
+
+</body>
+</html>

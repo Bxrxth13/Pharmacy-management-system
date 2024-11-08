@@ -1,0 +1,92 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wanted Stock</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-image: url("{% static 'pic7.jpg' %}");
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: #333;
+        
+        }
+        
+        h1 {
+            color: #2c3e50;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #1b0e0e;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .low-stock {
+            color: red;
+        }
+        .add-stock-button, .home-button {
+            background-color: #2C3E50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+        .add-stock-button:hover, .home-button:hover {
+            background-color: #34495e;
+        }
+        .center {
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Wanted Stock</h1>
+
+    <a href="{% url 'add_stock' %}" class="add-stock-button">Add Stock</a>
+
+    {% if medicines %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Medicine Name</th>
+                    <th>Dosage</th>
+                    <th>Price</th>
+                    <th>Current Stock</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for stock in medicines %}
+                    <tr>
+                        <td>{{ stock.medicine.name }}</td>
+                        <td>{{ stock.medicine.dosage }}</td>
+                        <td>₹{{ stock.medicine.price }}</td>
+                        <td class="low-stock">{{ stock.quantity }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>No medicines need to be restocked at this time.</p>
+    {% endif %}
+
+    <div class="center">
+        <a href="{% url 'home' %}" class="home-button">Go back to Home</a>
+    </div>
+</body>
+</html>

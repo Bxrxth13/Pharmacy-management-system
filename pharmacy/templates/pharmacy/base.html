@@ -1,0 +1,85 @@
+{% load static %} <!-- Ensure this is at the very top -->
+
+<!
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pharmacy Management System</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">  <!-- Load static file correctly -->
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-image: url("{% static 'pic9.avif' %}");
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: #333;
+        }
+        header {
+            background-color: rgba(44, 62, 80, 0.8);
+            color: white;
+            padding: 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        header h1 {
+            margin: 0;
+            font-size: 24px;
+        }
+        nav {
+            display: flex;
+            gap: 15px;
+        }
+        nav a {
+            color: white;
+            background-color: rgba(0, 0, 0, 0.3);
+            padding: 8px 15px;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+        nav a:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+        main {
+            padding: 20px;
+        }
+        footer {
+            background-color: rgba(44, 62, 80, 0.8);
+            color: white;
+            text-align: center;
+            padding: 10px;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Pharmacy Management System⚕️</h1>
+        <nav>
+            <a href="{% url 'home' %}">Home</a>
+            <a href="{% url 'medicine_list' %}">Medicines</a>
+            <a href="{% url 'add_medicine' %}">Add Medicine</a>
+            <a href="{% url 'wanted_stock' %}">Wanted Stock</a>
+        </nav>
+    </header>
+    <main>
+        {% block content %}
+        <!-- Default content can go here -->
+        {% endblock %}
+    </main>
+    <footer>
+        <p>&copy; 2024 Pharmacy Management System</p>
+    </footer>
+    <script src="{% static 'pharmacy/script.js' %}"></script>  <!-- Load your JavaScript file -->
+</body>
+</html>
